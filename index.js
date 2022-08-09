@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const mongoConnect = require('./utilities/database').mongoConnect;
 
+const authRoutes = require('./routes/auth');
+
 const app = express();
 
 const serverPort = process.env.SERVER_PORT;
@@ -16,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+app.use(authRoutes);
 
 mongoConnect(() => {
   app.listen(serverPort);
